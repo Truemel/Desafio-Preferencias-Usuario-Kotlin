@@ -31,6 +31,8 @@ class HomeActivity : AppCompatActivity() {
         loadData()
         save.setOnClickListener {
             //Agregar los pasos necesario para guardar los datos
+            saveNickNameAndAge()
+            saveLanguages()
             Snackbar.make(container, "Datos guardados", Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -50,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
     }
     private fun loadData() {
         userName = this.intent.getStringExtra("userName")
-        val title = "BienvenidoEsta es la pantalla inicial, aquí $userName podrá ver todas sus preferencias"
+        val title = "Bienvenido Esta es la pantalla inicial, aquí $userName podrá ver todas sus preferencias"
         homeTitle.text = title
         handleLanguages()
         loadProfile()
@@ -64,7 +66,7 @@ class HomeActivity : AppCompatActivity() {
         nickNameInput.setText(nickNameString)
         nicknameTitle.text = nickNameString
         val ageString = SharedPreferenceController.getAge(userName, this)
-        ageInput.setText(ageString)
+        ageInput.setText(ageString.toString())
     }
 
     private fun handleLanguages() {
@@ -99,12 +101,23 @@ class HomeActivity : AppCompatActivity() {
         val languagesKey = ""
         if(spanishCheckBox.isChecked)
             SharedPreferenceController.setLanguage("Spanish", userName, this)
+        else
+            SharedPreferenceController.removeLanguage("Spanish", userName, this)
+
         if(englishCheckBox.isChecked)
             SharedPreferenceController.setLanguage("English", userName, this)
+        else
+            SharedPreferenceController.removeLanguage("English", userName, this)
+
         if(germanCheckBox.isChecked)
             SharedPreferenceController.setLanguage("German", userName, this)
+        else
+            SharedPreferenceController.removeLanguage("German", userName, this)
+
         if(otherCheckBox.isChecked)
             SharedPreferenceController.setLanguage("Other*${otherTextInput.text.toString()}", userName, this)
+        else
+            SharedPreferenceController.removeLanguage("Other", userName, this)
     }
 
     private fun saveNickNameAndAge() {

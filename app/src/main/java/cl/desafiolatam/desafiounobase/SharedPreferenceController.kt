@@ -24,12 +24,12 @@ class SharedPreferenceController {
             return getShared(context).getString("${userName}_nick", "Nickname")!!
         }
 
-        fun getAge(userName: String, context: Context):Int{
-            return getShared(context).getInt("${userName}_age", 0)
-        }
-
         fun setNickName(nick:String, userName: String, context: Context){
             getShared(context).edit().putString("${userName}_nick", nick).apply()
+        }
+
+        fun getAge(userName: String, context: Context):Int{
+            return getShared(context).getInt("${userName}_age", 0)
         }
 
         fun setAge(age:Int, userName: String, context: Context){
@@ -45,6 +45,10 @@ class SharedPreferenceController {
 
         fun getLanguage(lang:String, userName: String, context: Context):String{
             return getShared(context).getString("${userName}_$lang", "")!!
+        }
+
+        fun removeLanguage(lang:String, userName: String, context: Context){
+            getShared(context).edit().remove("${userName}_$lang").apply()
         }
     }
 }
