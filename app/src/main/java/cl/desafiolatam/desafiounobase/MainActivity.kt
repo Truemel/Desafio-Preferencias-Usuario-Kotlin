@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     intent = Intent(this, WelcomeActivity::class.java)
                 }
+                intent.putExtra("userName", nameInput.text.toString())
                 startActivity(intent)
             } else {
                 Snackbar.make(container, "El nombre no puede estar vacío", Snackbar.LENGTH_SHORT).show()
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         //implementar este método para saber si el usuario ya ha entrado a la aplicación y ha visto
         //la pantalla de bienvenida. Este método permite decidir que pantalla se muestra después de presionar Ingresar
         //recorra la lista de usuarios
+        returnValue = SharedPreferenceController.getSeenWelcome(nameInput.text.toString(), this)
         return returnValue
     }
 }

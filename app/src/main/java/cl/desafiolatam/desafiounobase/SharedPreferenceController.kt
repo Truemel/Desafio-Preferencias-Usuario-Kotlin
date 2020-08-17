@@ -8,10 +8,18 @@ class SharedPreferenceController {
     companion object{
         private val sPrefName:String = "cl.desafiolatam.desafiounobase"
 
-        fun getShared(context:Context):SharedPreferences{
+        private fun getShared(context:Context):SharedPreferences{
             return context.getSharedPreferences(sPrefName, Context.MODE_PRIVATE)
         }
 
-        fun
+        fun setSeenWelcome(seen:Boolean, userName:String, context: Context){
+            getShared(context).edit().putBoolean("${userName}_welcome", seen).apply()
+        }
+
+        fun getSeenWelcome(userName: String, context: Context):Boolean{
+            return getShared(context).getBoolean("${userName}_welcome", false)
+        }
+
+
     }
 }

@@ -18,12 +18,14 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setUpViewsAndListener() {
-        val userName = "" // obtener el nombre de usuario de alguna manera y mostrarlo en nameUser
+        val userName = this.intent.getStringExtra("userName") // obtener el nombre de usuario de alguna manera y mostrarlo en nameUser
         nameUser.text = userName
         advance.setOnClickListener {
             //Agregar los pasos necesarios para manejar la persistencia
             //de cuando un usuario ve la pantalla de bienvenida la primera vez
+            SharedPreferenceController.setSeenWelcome(true, userName, this)
             val intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("userName", userName)
             startActivity(intent)
             finish()
         }
